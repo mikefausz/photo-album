@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <title>jQuery Photo Album</title>
+  </head>
+  <body>
+    <section class="top-view visible">
+      <nav>
+        <ul>
+          <li><i class="fa fa-th"></i></li>
+          <li><h1>My Albums</h1></li>
+        </ul>
+      </nav>
+      <div class="container">
+        <!-- load in album covers -->
+      </div>
+    </section>
+    <section class="album-view">
+      <nav>
+        <!-- load in album titles nav -->
+      </nav>
+      <div class="container">
+        <!-- load in selected album photos-->
+      </div>
+    </section>
+    <section class="photo-view"> <!-- full screen photo is css background of this section-->
+      <nav>
+        <ul>
+          <a rel="top-view" href="#"><li><i class="fa fa-th"></i></li></a>
+          <a rel="album-view" href="#"><li><i class="fa fa-th-large"></i></li></a>
+        </ul>
+        <ul class="photo-info">
+          <!-- photo info loaded in here -->
+        </ul>
+      </nav>
+      <a rel="prev-photo" href="#"><span class="mega-octicon octicon-chevron-left" id="left"></span></a>
+      <a rel="next-photo" href="#"><span class="mega-octicon octicon-chevron-right" id="right"></span></a>
+    </section>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="albums.js" charset="utf-8"></script>
+    <script src="app.js" charset="utf-8"></script>
+  </body>
+</html>

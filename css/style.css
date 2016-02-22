@@ -1,0 +1,130 @@
+body {
+  margin: 0;
+  padding: 0; }
+
+nav {
+  height: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; }
+
+ul {
+  list-style-type: none;
+  padding: 0; }
+
+a {
+  text-decoration: none;
+  color: black; }
+
+section {
+  display: none; }
+
+.visible {
+  display: block; }
+
+.container {
+  width: 96%;
+  margin: auto; }
+
+h2, h3 {
+  margin: 0; }
+
+.top-view .container {
+  margin-top: 8%;
+  display: flex;
+  justify-content: space-between; }
+
+.top-view nav {
+  background-color: rgba(255, 255, 255, 0.8); }
+
+.top-view ul {
+  padding: 0; }
+
+.top-view li {
+  display: inline-block; }
+
+.top-view .fa .fa-th-large {
+  color: black; }
+
+.top-view h1 {
+  color: black;
+  text-align: center;
+  font-size: 4rem;
+  margin: 10px; }
+
+.album-col {
+  margin: auto;
+  padding: 0;
+  width: 30%; }
+
+.album-box {
+  margin-bottom: 2%;
+  width: 100%; }
+  .album-box img {
+    min-width: 100%; }
+  .album-box .thumb-caption {
+    background: rgba(177, 177, 177, 0.5);
+    padding: 5px;
+    margin: 0%;
+    margin-top: -4px; }
+
+aside {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15%;
+  background-color: blue; }
+  aside ul {
+    top: 38%;
+    position: relative;
+    padding: 0;
+    margin: auto; }
+  aside li {
+    width: 100%;
+    background-color: red;
+    font-size: 24px;
+    margin-bottom: 12%;
+    text-align: center; }
+
+.right-content {
+  float: right;
+  width: 85%; }
+
+.album-view h1 {
+  color: black; }
+
+.photo-view {
+  min-height: 706px;
+  background-image: url(https://images.unsplash.com/photo-1455796653466-32048b2b780e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ce3a3d382ef51558268e47005ca20d2c);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; }
+  .photo-view nav {
+    background: rgba(0, 0, 0, 0.5);
+    color: white; }
+  .photo-view ul {
+    margin: 0;
+    text-align: center;
+    padding-top: 3%; }
+  .photo-view li {
+    display: inline-block;
+    margin-right: 2%; }
+  .photo-view .fa {
+    font-size: 2.5rem; }
+  .photo-view a {
+    color: white;
+    opacity: .4; }
+    .photo-view a:hover {
+      opacity: .7; }
+  .photo-view .arrow, .photo-view #left, .photo-view #right {
+    top: 45%;
+    position: fixed;
+    font-size: 8rem; }
+  .photo-view #left {
+    left: 4%; }
+  .photo-view #right {
+    right: 4%; }

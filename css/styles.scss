@@ -1,0 +1,61 @@
+$gold: #C5B358;
+$blackTrans: rgba(0, 0, 0,.5);
+$whiteTrans: rgba(255, 255, 255, .9);
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Bitter', serif;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $whiteTrans;
+  z-index: 100;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline-block;;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+section {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.container {
+  width: 96%;
+  padding-top: 7%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tint {
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0;
+  transition: all .5s ease-in-out;
+}
+
+@import "top-view";
+@import "album-view";
+@import "photo-view";
