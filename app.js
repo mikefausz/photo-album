@@ -1,22 +1,17 @@
-// $(document).ready(function () {
-  var setTopViewHtml = function() {
+$(document).ready(function () {
+
+var createAlbumCoverTempl = function(album) {
+  var albumCoverTempl = _.template($('#albumCoverTempl').html());
+  return albumCoverTempl(album);
+};
+
+var setTopViewHtml = function() {
   var albumCovers = getAlbumCovers(albums);
-  var topViewHtml = "<ul>";
-    albumCovers.forEach(function(albumCover) {
-      topViewHtml += "<a rel='album-view' id='" + albumCover.title + "' href='#'>"
-          + "<li class='album-box'>"
-            + "<div class='album-div' style='background-image: url(" + albumCover.cover_url + ")'>"
-              + "<div class='tint'>"
-              + "</div>"
-              + "<div class='thumb-caption'>"
-                + "<h2>" + albumCover.title + "</h2>"
-              + "</div>"
-            + "</div>"
-          + "</li>"
-        "</a>"
-    });
-    topViewHtml += "</ul>";
-  $('.top-view').find('.container').html(topViewHtml);
+  var topViewHtml = "";
+  _.each(albumCovers, function(albumCover) {
+    topViewHtml += createAlbumCoverTempl(albumCover);
+  });
+  $('.top-view').find('.album-covers').html(topViewHtml);
 };
 
 var getAlbumCovers = function(albums) {
@@ -24,83 +19,66 @@ var getAlbumCovers = function(albums) {
   albumCoversArr = albums.map(function(album) {
     return {
       title: album.title,
-      cover_url: getAlbumCoverUrl(album),
+      coverUrl: album.coverUrl,
     };
   });
   return albumCoversArr;
 };
 
-var getAlbumCoverUrl = function(album) {
-  var albumCoverObj = album.photos.filter(function(photo) {
-    return photo.album_cover === true;
-  });
-  return albumCoverObj[0].url;
-}
+// alternate album cover getters
 
+// var getAlbumCoverUrl = function(album) {
+//   var albumCoverObj = album.photos.filter(function(photo) {
+//     return photo.album_cover === true;
+//   });
+//   return albumCoverObj[0].url;
+// }
+
+// var getAlbumCoverUrl = function(album) {
+//   return album.coverUrl;
+// }
 
 var setAlbumViewNav = function() {
-  var albumTitleHtml = "<ul><a rel='top-view' href='#'><li><i class='fa fa-th'></i></li></a>"
-  albums.forEach(function(album) {
+  var albumTitleHtml = "";
+  _.each(albums, function(album) {
     albumTitleHtml += "<a rel='album-view' id='" + album.title + "' href='#'><li>"+ album.title + "</li></a>";
   });
-  albumTitleHtml += "</ul><a rel='new-photo-drop' href='#'><li><i class='fa fa-plus-square'></i></li></a>"
-    + "<form action='index.html' method='post'>"
-      + "<div class='new-photo'>"
-        + "<input type='text' id='title' placeholder='Title'/>"
-      + "</div>"
-      + "<div class='new-photo'>"
-        + "<input type='text' id='author' placeholder='Author'/>"
-      + "</div>"
-      + "<div class='new-photo'>"
-        + "<input type='text' id='url' placeholder='URL'/>"
-      + "</div>"
-      + "<div class='button new-photo'>"
-        + "<button type='add-photo'>Add Photo</button>"
-      + "</div>"
-    + "</form>";
-  $('nav', '.album-view').html(albumTitleHtml);
+  $('#album-titles', '.album-view').html(albumTitleHtml);
+};
+
+var createAlbumPhotoTempl = function(photo) {
+  var albumPhotoTempl = _.template($('#albumPhotoTempl').html());
+  return albumPhotoTempl(photo);
 };
 
 var setAlbumViewHtml = function(albumTitle) {
   var albumPhotos = getAlbumPhotos(albumTitle);
-  var albumViewHtml = "<ul class='album-photos'>";
-    albumPhotos.forEach(function(photo) {
-      albumViewHtml += "<a rel='photo-view' id='" + photo.title + "' href='#'>"
-        + "<li class='photo-box'>"
-          + "<div class='photo-div' style='background-image: url(" + photo.url + ")'>"
-            + "<div class='tint'>"
-            + "</div>"
-          + "</div>"
-          + "<div class='thumb-caption'>"
-            + "<h2 class='title'>" + photo.title + "</h2>"
-            + "<h3 class='author'>" +photo.author + "</h3>"
-          + "</div>"
-        + "</li>"
-      + "</a>";
+  var albumViewHtml = "";
+    _.each(albumPhotos, function(photo) {
+      albumViewHtml += createAlbumPhotoTempl(photo);
     });
-    albumViewHtml += "</ul>";
-  $('.album-view').find('.container').html(albumViewHtml);
-}
+  $('.album-view').find('.album-photos').html(albumViewHtml);
+};
 
 var getAlbumPhotos = function(albumTitle) {
   var albumPhotos = albums.filter(function(album) {
     return album.title === albumTitle;
   });
   return albumPhotos[0].photos;
-}
+};
 
 var grabNewPhoto = function() {
   var title = $('input[id="title"]').val();
   var author = $('input[id="author"]').val();
   var url = $('input[id="url"]').val();
   $('input[type="text"]').val("");
+  $('#make-cover').prop('checked', false);
   return {
     title: title,
     author: author,
     url: url,
-    album_cover: false,
   };
-}
+};
 
 var getCurrentAlbum = function() {
   var currentAlbumTitle = $('.album-view').attr('id');
@@ -108,17 +86,16 @@ var getCurrentAlbum = function() {
     return album.title === currentAlbumTitle;
   });
   return currentAlbumArr[0];
-}
+};
 
 var setPhotoViewHtml = function(title, author, imageUrl) {
-  var photoInfoHtml = "<li><h2>" + title + "</h2></li>"
-    + "<li><h3>" + author +"</h3></li>";
+  var photoInfoHtml = "<h2>" + title + "</h2>"
+    + "<h3>" + author +"</h3>";
   $('.photo-view').find('.photo-info').html(photoInfoHtml);
   $('.photo-view').css({'background-image': imageUrl});
-}
+};
 
-// on click
-var $navItem = $('body').find('a');
+// on link click
 $('body').on("click", 'a', function(event) {
     event.preventDefault();
     // toggle visible class for related page
@@ -145,8 +122,8 @@ $('body').on("click", 'a', function(event) {
     else if (selectedPage === ".photo-view") {
       $(this).addClass('current-photo');
       $(this).siblings().removeClass('current-photo');
-      var title = $(this).find($('h2')).text();
-      var author = $(this).find($('h3')).text();
+      var title = $(this).find($('.title')).text();
+      var author = $(this).find($('.author')).text();
       var imageUrl = $(this).find('.photo-div').css('background-image');
       setPhotoViewHtml(title, author, imageUrl);
     }
@@ -161,8 +138,8 @@ $('body').on("click", 'a', function(event) {
       else {
         var $nextPhoto = $currentPhoto.siblings().first();
       }
-      var nextTitle = $nextPhoto.find('h2').text();
-      var nextAuthor = $nextPhoto.find('h3').text();
+      var nextTitle = $nextPhoto.find('.title').text();
+      var nextAuthor = $nextPhoto.find('.author').text();
       var nextImageUrl = $nextPhoto.find('.photo-div').css('background-image');
       setPhotoViewHtml(nextTitle, nextAuthor, nextImageUrl);
       $nextPhoto.addClass('current-photo');
@@ -179,12 +156,21 @@ $('body').on("click", 'a', function(event) {
       else {
         var $prevPhoto = $currentPhoto.siblings().last();
       }
-      var prevTitle = $prevPhoto.find('h2').text();
-      var prevAuthor = $prevPhoto.find('h3').text();
+      var prevTitle = $prevPhoto.find('.title').text();
+      var prevAuthor = $prevPhoto.find('.author').text();
       var prevImageUrl = $prevPhoto.find('.photo-div').css('background-image');
       setPhotoViewHtml(prevTitle, prevAuthor, prevImageUrl);
       $prevPhoto.addClass('current-photo');
       $currentPhoto.removeClass('current-photo');
+    }
+    // if make cover button clicked, make current background url coverUrl
+    else if (selectedPage === ".make-cover") {
+      var currentPhotoBg = $('.photo-view').css('background-image');
+      var currentPhotoUrl = currentPhotoBg.replace('url("', '').replace('")', '');
+      getCurrentAlbum().coverUrl = currentPhotoUrl;
+    }
+    else {
+      setTopViewHtml();
     }
 });
 
@@ -196,7 +182,10 @@ $('body').on("click", 'button', function(event) {
     var currentAlbum = getCurrentAlbum();
     currentAlbum.photos.push(newPhoto);
     setAlbumViewHtml(currentAlbum.title);
+    if ($('#make-cover').prop('checked')) {
+      getCurrentAlbum().coverUrl = newPhoto.url;
+    }
 });
 
 setTopViewHtml();
-// });
+});

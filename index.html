@@ -2,11 +2,38 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <title>jQuery Photo Album</title>
     <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
     <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <title>jQuery Photo Album</title>
+    <script type="text/template" id="albumCoverTempl">
+      <a rel="album-view" id="<%= title %>" href="#">
+         <li class="album-box">
+           <div class="album-div" style="background-image: url(<%= coverUrl %>)">
+              <div class="tint">
+              </div>
+              <div class="thumb-caption">
+                <h1><%= title %></h1>
+              </div>
+           </div>
+         </li>
+       </a>
+    </script>
+    <script type="text/template" id="albumPhotoTempl">
+      <a rel="photo-view" id="<%= title %>" href="#">
+        <li class='photo-box'>
+          <div class='photo-div' style='background-image: url( <%= url %> )'>
+            <div class='tint'>
+            </div>
+          </div>
+          <div class='thumb-caption'>
+            <h1 class='title'> <%= title %> </h1>
+            <h2 class='author'> <%= author %> </h2>
+          </div>
+        </li>
+      </a>
+    </script>
   </head>
   <body>
     <section class="top-view visible">
@@ -17,15 +44,41 @@
         </ul>
       </nav>
       <div class="container">
+        <ul class='album-covers'>
         <!-- load in album covers -->
+      </ul>
       </div>
     </section>
     <section class="album-view">
       <nav>
-        <!-- load in album titles nav -->
+        <ul><a rel='top-view' href='#'><li><i class='fa fa-th'></i></li></a>
+          <span id="album-titles">
+        <!-- load in album title links -->
+          </span>
+        </ul><a rel='new-photo-drop' href='#'><li><i class='fa fa-plus-square'></i><h3>Add Photo</h3></li></a>
+          <form action='index.html' method='post'>
+            <div class='new-photo'>
+              <input type='text' id='title' placeholder='Title'/>
+            </div>
+            <div class='new-photo'>
+              <input type='text' id='author' placeholder='Author'/>
+            </div>
+            <div class='new-photo'>
+              <input type='text' id='url' placeholder='URL'/>
+            </div>
+            <div class='new-photo'>
+              <input type='checkbox' id='make-cover' value='option'>
+              <label for='option'>Make Cover</label>
+            </div>
+            <div class='button new-photo'>
+              <button type='add-photo'>Add Photo</button>
+            </div>
+          </form>
       </nav>
       <div class="container">
+        <ul class='album-photos'>
         <!-- load in selected album photos-->
+      </ul>
       </div>
     </section>
     <section class="photo-view"> <!-- full screen photo is css background of this section-->
@@ -33,9 +86,10 @@
         <ul>
           <a rel="top-view" href="#"><li><i class="fa fa-th"></i></li></a>
           <a rel="album-view" href="#"><li><i class="fa fa-th-large"></i></li></a>
-        </ul>
-        <ul class="photo-info">
-          <!-- photo info loaded in here -->
+          <li class="photo-info">
+            <!-- photo info loaded in here -->
+          </li>
+          <a rel='make-cover' href="#"><li><i class='fa fa-check-square'></i><h3>Make Cover</h3></li></a>
         </ul>
       </nav>
       <a rel="prev-photo" href="#"><span class="mega-octicon octicon-chevron-left" id="left"></span></a>

@@ -13,8 +13,8 @@
   ul {
     margin: 0;
     display: inline-block;
-    width: 50%;
-    padding: 1.8% 2%;
+    width: 100%;
+    padding: 0.8% 2%;
   }
   li {
     display: inline-block;
@@ -22,6 +22,14 @@
   }
   .fa {
     font-size: 48px;
+    vertical-align: middle;
+  }
+  .fa-check-square {
+    font-size: 32px;
+  }
+  h3 {
+    margin-left: 12px;
+    font-style: italic;
   }
   a {
     color: white;
@@ -31,8 +39,6 @@
     }
   }
   .photo-info {
-    width: 40%;
-    text-align: right;
     color: white;
     opacity: .4;
     &:hover {
