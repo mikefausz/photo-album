@@ -68,11 +68,10 @@ var getAlbumPhotos = function(albumTitle) {
 };
 
 var grabNewPhoto = function() {
-  var title = $('input[id="title"]').val();
-  var author = $('input[id="author"]').val();
-  var url = $('input[id="url"]').val();
+  var title = $('input[name="title"]').val();
+  var author = $('input[name="author"]').val();
+  var url = $('input[name="url"]').val();
   $('input[type="text"]').val("");
-  $('#make-cover').prop('checked', false);
   return {
     title: title,
     author: author,
@@ -175,15 +174,16 @@ $('body').on("click", 'a', function(event) {
 });
 
 // on add photo button click
-$('body').on("click", 'button', function(event) {
+$('form').on("submit", function(event) {
     event.preventDefault();
     // get info from input boxes and append to html
     var newPhoto = grabNewPhoto();
     var currentAlbum = getCurrentAlbum();
-    currentAlbum.photos.push(newPhoto);
+    getCurrentAlbum().photos.push(newPhoto);
     setAlbumViewHtml(currentAlbum.title);
-    if ($('#make-cover').prop('checked')) {
+    if ($('input[name="make-cover"]').prop('checked')) {
       getCurrentAlbum().coverUrl = newPhoto.url;
+      $('input[name="make-cover"]').prop('checked', false);
     }
 });
 
